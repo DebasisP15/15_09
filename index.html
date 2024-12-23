@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .question-container {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+        }
+        .question {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .answer-buttons button {
+            font-size: 1.5rem;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .answer-buttons button:hover {
+            transform: scale(1.1);
+        }
+        .answer-buttons .no {
+            background-color: #ff3b3b;
+            border: none;
+            color: white;
+        }
+        .answer-buttons .yes {
+            background-color: #4caf50;
+            border: none;
+            color: white;
+        }
+        .confetti {
+            display: none;
+        }
+        .confetti.active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+        .confetti span {
+            position: absolute;
+            background-color: #ff0;
+            width: 10px;
+            height: 10px;
+            animation: confetti 2s infinite;
+        }
+        @keyframes confetti {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(500px); }
+        }
+        .message-container {
+            display: none;
+            background: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            animation: fadeIn 1s ease-out;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+            max-height: 400px;
+            overflow-y: auto; /* Makes the content scrollable if it overflows */
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .message-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .message-container p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .question-container {
+                font-size: 1.2rem;
+                padding: 10px;
+            }
+            .question {
+                font-size: 2rem;
+            }
+            .message-container h2 {
+                font-size: 1.5rem;
+            }
+            .message-container p {
+                font-size: 1rem;
+            }
+            .answer-buttons button {
+                font-size: 1.2rem;
+                padding: 12px 20px;
+                width: 100%;
+                margin: 5px 0;
+            }
+            .confetti span {
+                width: 8px;
+                height: 8px;
+            }
+        }
+        @media (max-width: 480px) {
+            .question {
+                font-size: 1.8rem;
+            }
+            .answer-buttons button {
+                font-size: 1.1rem;
+                padding: 10px 15px;
+            }
+            .message-container h2 {
+                font-size: 1.3rem;
+            }
+            .message-container p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="question-container">
+        <div class="question">Do you love me?</div>
+        <div class="answer-buttons">
+            <button class="no">No</button>
+            <button class="yes">Yes</button>
+        </div>
+        <div class="confetti" id="confetti">
+            <span style="top: 10%; left: 20%; animation-delay: 0.2s;"></span>
+            <span style="top: 25%; left: 40%; animation-delay: 0.4s;"></span>
+            <span style="top: 50%; left: 60%; animation-delay: 0.6s;"></span>
+            <span style="top: 70%; left: 80%; animation-delay: 0.8s;"></span>
+        </div>
+        <div class="message-container" id="messageContainer">
+            <h2>You are my strength</h2>
+            <p>
+                I feel like I'm stuck in an infinite loop of emotions every time I see you. My heart’s value is assigned to you, and it seems like there's no way to debug this feeling no matter how many breakpoints I add, you keep running through my mind.<br><br>
+                You make my variables all warm and fuzzy, and with you, everything just compiles perfectly. I promise to commit to you, even if I have to handle some merge conflicts along the way. But, darling, no matter what, I’ll always push my love for you to the top of the stack.<br><br>
+                I can't imagine life without you in my array. You're the one I want to import into my heart and export all my love to. Together, we could create the perfect function one that returns nothing but happiness and joy.<br><br>
+                When we’re together, it feels like I’ve reached true north on my map, and all my logic gates open to you. You're the perfect algorithm to my heart, and I don't need any try-catch to know we’re meant to be.<br><br>
+                So, let’s make sure our code stays clean, no errors, no bugs, and no null pointers in our relationship. I promise I’ll always be your constant.<br><br>
+                I <code>console.log</code> my love for you.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const noButton = document.querySelector('.no');
+        const yesButton = document.querySelector('.yes');
+        const confetti = document.getElementById('confetti');
+        const messageContainer = document.getElementById('messageContainer');
+
+        // Prevent clicking "No" button
+        noButton.addEventListener('mouseover', function() {
+            const randomX = Math.floor(Math.random() * window.innerWidth);
+            const randomY = Math.floor(Math.random() * window.innerHeight);
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        });
+
+        // Show message and confetti when clicking "Yes"
+        yesButton.addEventListener('click', function() {
+            // Hide both buttons and show the message
+            noButton.style.display = 'none';
+            yesButton.style.display = 'none';
+            messageContainer.style.display = 'block';
+            confetti.classList.add('active');
+            setTimeout(() => {
+                confetti.style.display = 'none'; // Stop showing after animation
+            }, 3000);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
